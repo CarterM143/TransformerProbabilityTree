@@ -93,7 +93,8 @@ class InteractiveLLM:
             # Get the current token.
             token = self.tokens[self.current_index]
             # Append the token to the text area.
-            self.text_area.insert(tk.END, token)
+            #current_token_name = str(getattr(token, 'token'))
+            self.text_area.insert(tk.END, str(getattr(token, 'token')))
             self.text_area.see(tk.END)
 
             # Clear the alternatives widget.
@@ -108,11 +109,11 @@ class InteractiveLLM:
 
             # Build a string to display each alternative with its probability.
             alt_display = ""
-            for alt_word in top3:
+            for alt_obj in top3:
                 # Convert log probability to probability.
-                prob = math.exp(getattr(alt_word, "logprob", float("-inf")))
-                direct_word = str(getattr(alt_word, 'token'))
-                alt_display += f"Token: {direct_word}  Probability: {prob:.4f}\n"
+                alt_prob = math.exp(getattr(alt_obj, "logprob", float("-inf")))
+                alt_word = str(getattr(alt_obj, 'token'))
+                alt_display += f"Token: \"{alt_word}\" - Probability: {alt_prob:.4f}\n"
             self.alt_text.insert(tk.END, alt_display)
 
             self.current_index += 1
