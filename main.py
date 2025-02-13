@@ -67,7 +67,7 @@ class InteractiveLLM:
         # Label for the alternatives.
         self.alt_label = tk.Label(
             self.root,
-            text="Top alternatives for current token:",
+            text="Token and top alternative probabilities:",
             font=("Helvetica", 12)
         )
         self.alt_label.pack()
